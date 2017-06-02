@@ -10,7 +10,7 @@ def setup_env():
     data = request.get_json()
 
     if data['actuator_plugin'] == 'kvm':
-        actuator = KVMActuator
+        actuator = KVMActuator()
         actuator.allocated_resources(data['vm_id'])
         return 'ok', 200
 
@@ -22,7 +22,7 @@ def setup_cap():
     data = request.get_json()
 
     if data['actuator_plugin'] == 'kvm':
-        actuator = KVMActuator
+        actuator = KVMActuator()
         actuator.allocated_resources(data['vm_id'], int(data['cap']))
         return 'ok', 200
 
