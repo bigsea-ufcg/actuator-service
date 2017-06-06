@@ -6,24 +6,24 @@ app = Flask(__name__)
 
 
 @app.route('/actuator/allocated_resources/', methods=['POST'])
-def setup_env():
+def get_allocated_resources():
     data = request.get_json()
 
     if data['actuator_plugin'] == 'kvm':
         actuator = KVMActuator()
-        actuator.allocated_resources(data['vm_id'])
-        return 'ok', 200
+        result = actuator.allocated_resources(data['vm_id'])
+        return str(result), 200
 
     return 'fail', 500
 
 
 @app.route('/actuator/set_vcpu_cap/', methods=['POST'])
-def setup_cap():
+def set_cap():
     data = request.get_json()
 
     if data['actuator_plugin'] == 'kvm':
         actuator = KVMActuator()
-        actuator.allocated_resources(data['vm_id'], int(data['cap']))
+        actuator.set_vcpu_cap(data['vm_id'], int(data['cap']))
         return 'ok', 200
 
     return 'fail', 500
