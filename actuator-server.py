@@ -28,5 +28,22 @@ def set_cap():
 
     return 'fail', 500
 
+@app.route('/actuator/list_vms/', methods=['POST'])
+def list_vms():
+    data = request.get_json()
+    
+    if data['actuator_plugin'] == 'kvm':
+        actuator = KVMActuator()
+        vms = actuator.list_vms()
+        vms_resp = ""
+        
+        if len(vms) > 0:
+            vms_resp += vms[0]
+            for vm in vms:
+                vms_resp += "," + vm
+        return vms_resp, 200
+        
+    return 'fail', 500
+
 if __name__ == '__main__':
     app.run(port=5047, host='0.0.0.0')

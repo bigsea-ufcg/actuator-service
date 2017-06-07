@@ -28,3 +28,14 @@ class KVMActuator(Plugin):
         except Exception as e:
             print e.getMessage()
             self.logger.log(e.getMessage())
+
+    def list_vms(self):
+        try:
+            command = "virsh list --all --uuid"
+            output = subprocess.check_output(command, shell = True)
+
+            return output.strip().split("\n")
+        except Exception as e:
+            print e.getMessage()
+            self.logger.log(e.getMessage())
+            
