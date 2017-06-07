@@ -1,0 +1,10 @@
+[Unit]
+Description=Actuator BigSea Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python /opt/actuator-bigsea/actuator-server.py 
+
+[Install]
+WantedBy=multi-user.target
